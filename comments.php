@@ -27,7 +27,7 @@
         }
         else{
           $mail=format($_POST["mail"]);
-          if (!filter_var($mail, FILTER_VALIDATE_mail)) {
+          if (!filter_var($mail, FILTER_VALIDATE_EMAIL)) {
               $mailErr = "Email provided is not a valid Email"; 
               $SeeError=1;
           }
@@ -41,7 +41,23 @@
         $comment=format($_POST["comment"]);
       }  
 
-
+      $dbhost="localhost";
+      $dbuser="guest";
+      $dbpass="guest123";
+      $dbname="FirstDatabse";
+      $conn= new mysqli($dbhost,$dbuser,$dbpass,$dbname);
+      if($conn->connect_error){
+        die("Sorry could not be connected to the database  ".$conn->connect_error );
+      }
+      else{
+        $date=date("Y-m-d H:i:s");
+        $sql="INSERT INTO comments(Date,Name,Email,Comments) VALUES('$date','$name','$mail','$comment')";
+        $result = $conn->query($sql);
+        if (!$result) {
+          die("Couldnot Enter The data in the databse exitting  :  *  ".$conn->error);
+        }
+        echo "<script>alert(\"Data Entered Successfully.... THANKYOU\")</script>";
+      }
 
   }
  ?>
