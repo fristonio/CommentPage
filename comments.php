@@ -2,6 +2,10 @@
   include 'showphperror.php';
   $name=$mail=$comment=$nameErr=$mailErr=$commentErr='';
   $SeeError=0;
+  $dbhost="localhost";
+  $dbuser="guest";
+  $dbpass="guest123";
+  $dbname="FirstDatabse";
   function format($data) {
           $data = trim($data);
           $data = stripslashes($data);
@@ -41,10 +45,6 @@
         $comment=format($_POST["comment"]);
       }  
 
-      $dbhost="localhost";
-      $dbuser="guest";
-      $dbpass="guest123";
-      $dbname="FirstDatabse";
       $conn= new mysqli($dbhost,$dbuser,$dbpass,$dbname);
       if($conn->connect_error){
         die("Sorry could not be connected to the database  ".$conn->connect_error );
@@ -65,6 +65,7 @@
 <html>
   <head>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500|Ubuntu" rel="stylesheet">
   </head>
   <body>
   <div class="myform">
@@ -86,5 +87,22 @@
       </fieldset>
     </form>
     </div>
+     
+     <?php
+        $conn= new mysqli($dbhost,$dbuser,$dbpass,$dbname); 
+        $sql="SELECT * From comments";
+        $result= $conn->query($sql);
+        if (!$result) {
+          die("Couldnot Enter The data in the databse exitting  :  *  ".$conn->error);
+        }
+        while($row = $result->fetch_assoc()){
+          echo "<div class=\"commentdiv\">
+                  <p><span>Name</span> :". $row["Name"]."</p>
+                  <p><span>E-Mail</span> :". $row["Email"]."</p>
+                  <p>\"".$row["Comments"]."\"</p>
+                </div>";
+        }
+      ?> 
+    
   </body>
 </html>

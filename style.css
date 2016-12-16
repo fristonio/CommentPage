@@ -118,3 +118,20 @@
   text-align: right;
   display: inline;
 }
+.commentdiv{
+    background: #312450;
+    padding: 1% 2%;
+    margin: 1% 15%;
+    font-family: 'Roboto', sans-serif; 
+    text-align: center;
+    color: white;
+    font-size: 1.1vw;
+    border-radius: 1%;  
+
+}
+.commentdiv span{
+    font-weight: 500;
+    font-size: 1.2vw;
+    letter-spacing: 2px;
+    text-shadow: 1px 1px grey;
+}
